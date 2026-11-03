@@ -1,0 +1,20 @@
+---
+// Renders from src/data/faq.ts, the same list the FAQPage JSON-LD uses (SPEC.md F3.12, F8.4).
+import { faq } from '../../data/faq';
+---
+
+<section id="faq" aria-labelledby="faq-title" class="mt-16 sm:mt-20">
+	<h2 id="faq-title" class="text-2xl font-bold tracking-tight sm:text-3xl">Frequently asked questions</h2>
+	<div class="mt-8 divide-y divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+		{
+			faq.map((item) => (
+				<details class="group py-2">
+					<summary class="cursor-pointer rounded px-1 py-3 font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400">
+						{item.question}
+					</summary>
+					<p class="px-1 pb-3 text-slate-700 dark:text-slate-300">{item.answer}</p>
+				</details>
+			))
+		}
+	</div>
+</section>

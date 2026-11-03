@@ -1,0 +1,16 @@
+---
+import CtaLink from './CtaLink.astro';
+import { finalCta, pricingCta } from '../../data/home';
+---
+
+<section
+	id="final-cta"
+	aria-labelledby="final-cta-title"
+	class="mt-16 rounded-2xl bg-slate-50 px-6 py-10 text-center sm:mt-20 sm:px-12 dark:bg-slate-900"
+>
+	<h2 id="final-cta-title" class="text-2xl font-bold tracking-tight sm:text-3xl">{finalCta.title}</h2>
+	<p class="mx-auto mt-3 max-w-xl text-slate-700 dark:text-slate-300">{finalCta.text}</p>
+	<div class="mt-6">
+		<CtaLink cta={pricingCta} />
+	</div>
+</section>
