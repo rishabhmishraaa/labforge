@@ -1,0 +1,34 @@
+---
+// All SEO and social-sharing tags for a page (SPEC.md F6). Absolute URLs come from `site` in astro.config.mjs.
+import { normalizePath } from '../utils/paths';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+
+if (!Astro.site) {
+	throw new Error('Seo.astro: set `site` in astro.config.mjs; canonical and Open Graph URLs depend on it.');
+}
+
+const canonical = new URL(normalizePath(Astro.url.pathname), Astro.site).href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="LabForge" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="LabForge: hands-on Azure and AWS labs that launch in the browser" />
+
+<meta name="twitter:card" content="summary_large_image" />
