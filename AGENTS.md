@@ -102,3 +102,22 @@ A change is done when all of these are true:
 - [ ] Tests pass (once a test setup exists).
 - [ ] No errors in the browser console.
 - [ ] Acceptance criteria in `SPEC.md` are met.
+
+## 8. Git & PR conventions
+
+- **Commit messages** follow [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`, `test:`, `chore:`, `refactor:`, followed by a short imperative summary (e.g. `feat: add theme toggle`).
+- **One feature per branch**, named `<type>/<short-name>` (e.g. `feat/theme-toggle`).
+- **PR descriptions** use this template:
+
+  ```markdown
+  ## What
+
+  ## Why
+
+  ## How I verified it
+  <!-- Commands run and their results; which SPEC.md criteria are met -->
+
+  ## Out of scope / follow-ups
+  ```
+
+- **Before saying a task is done**, run `npm run build` and report the result. Never claim something passes without having run it.
