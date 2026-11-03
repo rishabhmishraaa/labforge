@@ -6,8 +6,8 @@ const footerLinks = [
 ];
 ---
 
-<footer class="border-t border-slate-200">
-	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-8 text-sm text-slate-600">
+<footer class="border-t border-slate-200 dark:border-slate-800">
+	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-8 text-sm text-slate-600 dark:text-slate-400">
 		<nav aria-label="Footer">
 			<ul class="flex flex-wrap gap-x-6 gap-y-2">
 				{
@@ -15,7 +15,7 @@ const footerLinks = [
 						<li>
 							<a
 								href={href}
-								class="inline-block rounded px-1 py-1 hover:text-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+								class="inline-block rounded px-1 py-1 hover:text-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:hover:text-indigo-300 dark:focus-visible:outline-indigo-400"
 							>
 								{label}
 							</a>

@@ -1,18 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
+import { forEachPage } from './helpers';
 
 // F1 — Base layout & navigation (SPEC.md). Each test checks one criterion on every page.
-// The 404 page arrives in F5; add it to this list then.
-const pages = ['/', '/pricing', '/about'] as const;
 const navPaths = ['/', '/pricing', '/about'];
-
-async function forEachPage(page: Page, check: (path: string) => Promise<void>) {
-	for (const path of pages) {
-		await test.step(path, async () => {
-			await page.goto(path);
-			await check(path);
-		});
-	}
-}
 
 const hrefsOf = (page: Page, selector: string) =>
 	page.locator(selector).evaluateAll((els) => els.map((el) => el.getAttribute('href')));
@@ -179,7 +169,9 @@ test('F1.15 nav is fully visible at 360 px with no collapsible menu', async ({ p
 			await expect(link).toBeVisible();
 			await expect(link).toBeInViewport({ ratio: 1 });
 		}
+		const toggle = header.locator('button[data-theme-toggle]');
+		await expect(toggle).toBeVisible();
+		await expect(toggle).toBeInViewport({ ratio: 1 });
 		await expect(header.locator('[aria-expanded], details')).toHaveCount(0);
-		// TODO(F2): also assert the theme toggle is visible at 360 px once it exists.
 	});
 });
