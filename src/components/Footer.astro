@@ -1,0 +1,29 @@
+---
+const footerLinks = [
+	{ href: '/', label: 'Home' },
+	{ href: '/pricing', label: 'Pricing' },
+	{ href: '/about', label: 'About' },
+];
+---
+
+<footer class="border-t border-slate-200">
+	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-8 text-sm text-slate-600">
+		<nav aria-label="Footer">
+			<ul class="flex flex-wrap gap-x-6 gap-y-2">
+				{
+					footerLinks.map(({ href, label }) => (
+						<li>
+							<a
+								href={href}
+								class="inline-block rounded px-1 py-1 hover:text-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							>
+								{label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<p>LabForge is a fictional product built as a portfolio project.</p>
+	</div>
+</footer>
