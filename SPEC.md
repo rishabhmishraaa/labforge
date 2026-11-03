@@ -12,6 +12,11 @@ All site copy must stay within these facts. Do not invent customers, numbers, ce
 - Audience: L&D managers, technical trainers, DevRel teams.
 - LabForge is a fictional product.
 
+### Copy rule
+
+- **Allowed:** explaining direct consequences of the facts and what they mean for the reader. For example, "launch in the browser" → learners don't install anything or configure cloud accounts; "auto-delete after a time limit" → no forgotten resources running up a bill.
+- **Not allowed:** numbers, customers, logos, integrations, certifications, performance claims, or features not in the facts.
+
 ## Site facts
 
 - Pages: `/` (home), `/pricing`, `/about`, and a custom 404.

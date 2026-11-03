@@ -1,14 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Features from '../components/home/Features.astro';
+import HowItWorks from '../components/home/HowItWorks.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import Faq from '../components/home/Faq.astro';
+import FinalCta from '../components/home/FinalCta.astro';
 ---
 
 <BaseLayout
 	title="LabForge: Hands-on Azure and AWS labs in the browser"
 	description="Ready-to-use Azure and AWS sandbox labs that launch in the browser for courses, workshops, and product demos, and auto-delete after a time limit."
 >
-	<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">LabForge</h1>
-	<p class="mt-4 max-w-2xl text-lg text-slate-700 dark:text-slate-300">
-		Ready-to-use, hands-on Azure and AWS lab environments that launch in the browser, for courses, workshops,
-		and product demos.
-	</p>
+	<Hero />
+	<Features />
+	<HowItWorks />
+	<Testimonials />
+	<Faq />
+	<FinalCta />
 </BaseLayout>

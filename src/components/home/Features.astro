@@ -1,0 +1,17 @@
+---
+import { features } from '../../data/features';
+---
+
+<section id="features" aria-labelledby="features-title" class="mt-16 sm:mt-20">
+	<h2 id="features-title" class="text-2xl font-bold tracking-tight sm:text-3xl">What LabForge provides</h2>
+	<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+		{
+			features.map((feature) => (
+				<article class="rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900">
+					<h3 class="text-lg font-semibold">{feature.title}</h3>
+					<p class="mt-2 text-slate-700 dark:text-slate-300">{feature.description}</p>
+				</article>
+			))
+		}
+	</div>
+</section>

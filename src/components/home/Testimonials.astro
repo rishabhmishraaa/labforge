@@ -1,0 +1,23 @@
+---
+import { testimonialNotice, testimonials } from '../../data/testimonials';
+---
+
+<section id="testimonials" aria-labelledby="testimonials-title" class="mt-16 sm:mt-20">
+	<h2 id="testimonials-title" class="text-2xl font-bold tracking-tight sm:text-3xl">Example testimonials</h2>
+	<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{testimonialNotice}</p>
+	<div class="mt-8 grid gap-4 lg:grid-cols-3">
+		{
+			testimonials.map((t) => (
+				<figure class="flex flex-col justify-between rounded-xl border border-slate-200 p-6 dark:border-slate-800">
+					<blockquote class="text-slate-800 dark:text-slate-200">
+						<p>“{t.quote}”</p>
+					</blockquote>
+					<figcaption class="mt-4 text-sm text-slate-600 dark:text-slate-400">
+						<cite class="font-semibold text-slate-900 not-italic dark:text-slate-100">{t.name}</cite>,{' '}
+						<span>{t.role}</span>
+					</figcaption>
+				</figure>
+			))
+		}
+	</div>
+</section>
