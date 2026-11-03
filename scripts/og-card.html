@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- Source for public/og-image.png (SPEC.md D5). Regenerate with: npm run og:image -->
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>LabForge OG card</title>
+		<style>
+			* {
+				margin: 0;
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				width: 1200px;
+				height: 630px;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				padding: 80px 88px;
+				background: linear-gradient(135deg, #312e81 0%, #4338ca 55%, #4f46e5 100%);
+				color: #fff;
+				font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+			}
+			.brand {
+				display: flex;
+				align-items: center;
+				gap: 24px;
+				font-size: 56px;
+				font-weight: 700;
+				letter-spacing: -0.02em;
+			}
+			.brand svg {
+				width: 88px;
+				height: 88px;
+			}
+			h1 {
+				max-width: 940px;
+				font-size: 68px;
+				line-height: 1.1;
+				font-weight: 700;
+				letter-spacing: -0.02em;
+			}
+			.tags {
+				display: flex;
+				gap: 16px;
+				font-size: 26px;
+			}
+			.tags span {
+				padding: 10px 22px;
+				border: 2px solid rgb(255 255 255 / 0.5);
+				border-radius: 999px;
+			}
+			.note {
+				font-size: 22px;
+				color: #c7d2fe;
+			}
+			.footer {
+				display: flex;
+				align-items: flex-end;
+				justify-content: space-between;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="brand">
+			<svg viewBox="0 0 32 32" aria-hidden="true">
+				<rect width="32" height="32" rx="7" fill="#fff" />
+				<path d="M13 6h6v7l6 11a2 2 0 0 1-1.8 3H8.8A2 2 0 0 1 7 24l6-11z" fill="#4f46e5" />
+			</svg>
+			LabForge
+		</div>
+		<h1>Hands-on Azure and AWS labs that launch in the browser</h1>
+		<div class="footer">
+			<div class="tags"><span>Courses</span><span>Workshops</span><span>Product demos</span></div>
+			<p class="note">Fictional product · portfolio project</p>
+		</div>
+	</body>
+</html>

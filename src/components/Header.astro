@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import { normalizePath } from '../utils/paths';
 
 const navLinks = [
 	{ href: '/', label: 'Home' },
@@ -7,13 +8,7 @@ const navLinks = [
 	{ href: '/about', label: 'About' },
 ];
 
-// With build.format 'file', the path can end in ".html", so normalize before comparing.
-function normalize(path: string): string {
-	const trimmed = path.replace(/\.html$/, '').replace(/\/+$/, '');
-	return trimmed === '' || trimmed === '/index' ? '/' : trimmed;
-}
-
-const currentPath = normalize(Astro.url.pathname);
+const currentPath = normalizePath(Astro.url.pathname);
 const focusRing =
 	'rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-400';
 ---
@@ -32,7 +27,7 @@ const focusRing =
 				<ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
 					{
 						navLinks.map(({ href, label }) => {
-							const isCurrent = normalize(href) === currentPath;
+							const isCurrent = normalizePath(href) === currentPath;
 							return (
 								<li>
 									<a
