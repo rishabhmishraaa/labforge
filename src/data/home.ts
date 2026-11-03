@@ -1,4 +1,4 @@
-// Home page hero and final call to action (SPEC.md F3). Copy must stay within SPEC.md "Product facts".
+// Home page hero and final call to action (SPEC.md F3). Copy follows SPEC.md "Product facts" and "Copy rule".
 
 export interface Cta {
 	label: string;
@@ -10,7 +10,7 @@ export const pricingCta: Cta = { label: 'View pricing', href: '/pricing' };
 
 export const hero = {
 	title: 'Hands-on cloud labs that launch in the browser',
-	text: 'LabForge gives training teams and software companies ready-to-use Azure and AWS sandbox environments for courses, workshops, and product demos.',
+	text: 'Give learners ready-to-use Azure and AWS sandboxes for courses, workshops, and product demos, with nothing to install and nothing left running afterwards.',
 };
 
 export const finalCta = {

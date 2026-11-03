@@ -1,6 +1,7 @@
 // Home page FAQ (SPEC.md F3.10–F3.12).
 // Single source of truth: the visible FAQ and the FAQPage JSON-LD (F8.4) must both render from this list,
-// so keep answers as plain text (no markup).
+// so keep answers as plain text (no markup). Answers are 1–2 full sentences.
+// Copy follows SPEC.md "Product facts" and "Copy rule".
 
 export interface FaqItem {
 	question: string;
@@ -11,26 +12,29 @@ export const faq: FaqItem[] = [
 	{
 		question: 'What is LabForge?',
 		answer:
-			'LabForge gives training teams and software companies ready-to-use, hands-on cloud lab environments: Azure and AWS sandboxes that launch in the browser.',
+			'LabForge is a cloud lab service for training teams and software companies. It provides ready-to-use Azure and AWS sandboxes for hands-on practice.',
 	},
 	{
-		question: 'Which cloud platforms do the labs use?',
-		answer: 'Labs run as Azure and AWS sandboxes.',
+		question: 'Do learners need their own Azure or AWS account?',
+		answer:
+			"No. Each lab comes with a ready-to-use sandbox, so learners don't create or configure cloud accounts.",
 	},
 	{
-		question: 'How do learners open a lab?',
-		answer: 'Labs launch in the browser.',
+		question: 'Which cloud platforms are available?',
+		answer: 'Labs run on Azure and AWS. Each lab is a sandbox on one of those two platforms.',
 	},
 	{
-		question: "What happens when a lab's time limit ends?",
-		answer: 'The lab auto-deletes to control cost.',
+		question: 'What happens when the time limit ends?',
+		answer:
+			'The lab is deleted automatically when its time limit ends. Plan sessions so learners finish their exercises within that window.',
 	},
 	{
-		question: 'Who is LabForge for?',
-		answer: 'L&D managers, technical trainers, and DevRel teams who run courses, workshops, and product demos.',
+		question: 'Who uses LabForge?',
+		answer:
+			'L&D managers use it for hands-on training programs, technical trainers use it in courses and workshops, and DevRel teams use it for workshops and product demos.',
 	},
 	{
 		question: 'Is LabForge a real product?',
-		answer: 'No. LabForge is a fictional product built as a portfolio project.',
+		answer: 'No. LabForge is a fictional product built as a portfolio project, so there is nothing to sign up for.',
 	},
 ];

@@ -1,4 +1,5 @@
-// Home page "How it works" steps (SPEC.md F3.6). Copy must stay within SPEC.md "Product facts".
+// Home page "How it works" steps (SPEC.md F3.6): before, during, and after a session.
+// Copy follows SPEC.md "Product facts" and "Copy rule".
 
 export interface Step {
 	title: string;
@@ -7,15 +8,15 @@ export interface Step {
 
 export const steps: Step[] = [
 	{
-		title: 'Get a ready-to-use lab',
-		description: 'LabForge provides a hands-on Azure or AWS sandbox environment.',
+		title: 'Before: nothing to build',
+		description: "The Azure or AWS sandbox is ready to use, so trainers don't prepare environments ahead of time.",
 	},
 	{
-		title: 'Launch it in the browser',
-		description: 'The lab launches in the browser.',
+		title: 'During: start right away',
+		description: 'Learners open the lab in their browser and spend the session on the exercise itself.',
 	},
 	{
-		title: 'Let it clean up',
-		description: 'The lab auto-deletes after its time limit to control cost.',
+		title: 'After: no cleanup',
+		description: 'The lab deletes itself when its time limit ends, so nobody has to remember to shut it down.',
 	},
 ];
