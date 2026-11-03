@@ -38,8 +38,10 @@ Run from the project root (PowerShell):
 | Dev server | `npm run dev`                   |
 | Build      | `npm run build` (output: `dist/`) |
 | Preview    | `npm run preview` (serves the build) |
-| Tests      | _To be added_                   |
+| Tests      | `npm test` (builds, serves the production build on port 4322, runs Playwright in Chromium) |
 | Lint/check | _To be added_                   |
+
+One-time setup after `npm install`: `npx playwright install chromium` (Chromium only; see SPEC.md D8). Tests live in `tests/`, and each test title starts with the SPEC.md criterion ID it covers (for example `F1.7 ...`).
 
 When an agent starts the dev server, use background mode so it doesn't block the session:
 
