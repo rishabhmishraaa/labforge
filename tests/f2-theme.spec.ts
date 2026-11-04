@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { forEachPage, notFoundPath, pages } from './helpers';
+import { forEachPage, isExpectedNotFoundMessage, pages } from './helpers';
 
 // F2 — Light/dark theme (SPEC.md). The system setting is emulated with colorScheme.
 // Each test gets a fresh browser context, so localStorage starts empty.
@@ -160,12 +160,7 @@ test('F2.9 toggle shows a visible focus indicator when focused by keyboard', asy
 test('F2.10 page works with system theme when localStorage throws', async ({ page }) => {
 	const errors: string[] = [];
 	page.on('console', (msg) => {
-		if (msg.type() !== 'error') return;
-		// Chromium logs the 404 page's own document response (expected, F5.5) as "Failed to load resource".
-		// Ignore only that message for that URL; any other failed resource still fails the test.
-		const isExpected404 =
-			msg.text().includes('status of 404') && msg.location().url.endsWith(notFoundPath);
-		if (!isExpected404) errors.push(msg.text());
+		if (msg.type() === 'error' && !isExpectedNotFoundMessage(msg)) errors.push(msg.text());
 	});
 	page.on('pageerror', (err) => errors.push(err.message));
 
