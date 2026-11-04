@@ -1,0 +1,17 @@
+---
+// FAQPage JSON-LD, on "/" only (SPEC.md F8.4, F8.5). Built from src/data/faq.ts, the same list the visible FAQ renders
+// from (F3.12), so questions and answers always match the page.
+import JsonLd from './JsonLd.astro';
+import { faq } from '../../data/faq';
+---
+
+<JsonLd
+	data={{
+		'@type': 'FAQPage',
+		mainEntity: faq.map((item) => ({
+			'@type': 'Question',
+			name: item.question,
+			acceptedAnswer: { '@type': 'Answer', text: item.answer },
+		})),
+	}}
+/>

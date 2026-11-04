@@ -1,0 +1,15 @@
+---
+// Renders one schema.org JSON-LD object (SPEC.md F8.1). Each schema type has its own small component that builds
+// `data` and passes it here, so serialization lives in one place.
+interface Props {
+	/** The schema.org object without `@context`; it is added here. */
+	data: Record<string, unknown>;
+}
+
+const { data } = Astro.props;
+
+// Escape "<" so a "</script>" inside any value can't end the tag early. JSON.parse reads "<" back as "<".
+const json = JSON.stringify({ '@context': 'https://schema.org', ...data }).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={json} />
