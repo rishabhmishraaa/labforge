@@ -1,0 +1,10 @@
+---
+// Organization JSON-LD, on every page via BaseLayout (SPEC.md F8.2). The URL comes from `site`.
+import JsonLd from './JsonLd.astro';
+
+if (!Astro.site) {
+	throw new Error('OrganizationJsonLd: set `site` in astro.config.mjs.');
+}
+---
+
+<JsonLd data={{ '@type': 'Organization', name: 'LabForge', url: new URL('/', Astro.site).href }} />
