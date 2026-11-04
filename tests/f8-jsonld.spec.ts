@@ -1,9 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
-import { forEachPage, notFoundPath } from './helpers';
+import { SITE, forEachPage, notFoundPath } from './helpers';
 
 // F8 — JSON-LD structured data (SPEC.md).
 // Expected offers are copied from the SPEC.md pricing table on purpose, not imported from src/data/pricing.ts.
-const SITE = 'https://labforge.example.com';
 
 type JsonObject = Record<string, any>;
 

@@ -1,5 +1,10 @@
 import { test, type ConsoleMessage, type Page } from '@playwright/test';
 
+// The production site URL, as set in astro.config.mjs → `site`. Expected absolute URLs (canonical, Open Graph,
+// sitemap, robots.txt, JSON-LD) are built from it. Tests may run against any server (see BASE_URL in
+// playwright.config.ts); the page content always uses this URL.
+export const SITE = 'https://labforge-chi.vercel.app';
+
 // Any URL that doesn't exist; the preview server answers it with the custom 404 page (SPEC.md F5.5).
 export const notFoundPath = '/does-not-exist';
 
