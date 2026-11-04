@@ -39,10 +39,13 @@ Run from the project root (PowerShell):
 | Build      | `npm run build` (output: `dist/`) |
 | Preview    | `npm run preview` (serves the build) |
 | Tests      | `npm test` (builds, serves the production build on port 4322, runs Playwright in Chromium) |
+| Tests (live site) | `$env:BASE_URL="https://labforge-chi.vercel.app"; npm test` (runs the same tests against that URL; no local build or server) |
 | OG image   | `npm run og:image` (regenerates `public/og-image.png` at 1200×630 by screenshotting `scripts/og-card.html` with Playwright's Chromium; commit the PNG) |
 | Lint/check | _To be added_                   |
 
 One-time setup after `npm install`: `npx playwright install chromium` (Chromium only; see SPEC.md D8). Tests live in `tests/`, and each test title starts with the SPEC.md criterion ID it covers (for example `F1.7 ...`).
+
+`$env:BASE_URL` stays set for the rest of the PowerShell session. Run `Remove-Item Env:BASE_URL` before testing locally again.
 
 When an agent starts the dev server, use background mode so it doesn't block the session:
 
@@ -67,6 +70,7 @@ src/
   assets/          Images processed by Astro's image pipeline (use <Image />)
 tests/             Playwright tests (one spec file per feature)
 astro.config.mjs   Astro + Vite config (`site`, URL format, Tailwind plugin)
+vercel.json        Vercel hosting config (`cleanUrls`, no trailing slash)
 ```
 
 `src/assets/` doesn't exist yet; create it when first needed. The site URL is set only in `astro.config.mjs` → `site`; never hard-code it elsewhere.
