@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { aboutIntro, aboutSections, audiences, audiencesTitle } from '../data/about';
 ---
 
 <BaseLayout
@@ -7,7 +8,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	description="LabForge gives L&D managers, technical trainers, and DevRel teams browser-based Azure and AWS labs that auto-delete after a time limit."
 >
 	<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About LabForge</h1>
-	<p class="mt-4 max-w-2xl text-lg text-slate-700 dark:text-slate-300">
-		LabForge provides hands-on cloud labs for L&amp;D managers, technical trainers, and DevRel teams.
-	</p>
+	<p class="mt-4 max-w-2xl text-lg text-slate-700 dark:text-slate-300">{aboutIntro}</p>
+
+	<section aria-labelledby="audiences-title" class="mt-12">
+		<h2 id="audiences-title" class="text-2xl font-bold tracking-tight">{audiencesTitle}</h2>
+		<div class="mt-6 grid gap-4 md:grid-cols-3">
+			{
+				audiences.map((audience) => (
+					<article class="rounded-xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900">
+						<h3 class="text-lg font-semibold">{audience.title}</h3>
+						<p class="mt-2 text-slate-700 dark:text-slate-300">{audience.text}</p>
+					</article>
+				))
+			}
+		</div>
+	</section>
+
+	{
+		aboutSections.map((section, i) => (
+			<section aria-labelledby={`about-section-${i}`} class="mt-12 max-w-2xl">
+				<h2 id={`about-section-${i}`} class="text-2xl font-bold tracking-tight">
+					{section.title}
+				</h2>
+				<p class="mt-3 text-slate-700 dark:text-slate-300">{section.text}</p>
+			</section>
+		))
+	}
 </BaseLayout>
