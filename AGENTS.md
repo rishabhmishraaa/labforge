@@ -98,6 +98,7 @@ Astro docs: https://docs.astro.build. Check the relevant guide before related wo
 - **No client-side JS frameworks** (React, Vue, Svelte, etc.). Use a plain `<script>` only when necessary.
 - **Work on a feature branch.** Never commit directly to `main`.
 - **Ask before anything hard to undo**: pushing, deleting files, rewriting git history.
+- **Create and edit files with the agent's file tools** (Write/Edit), not shell commands (`cat >`, `sed -i`, heredocs, scripts), so every change shows up as a reviewable diff. Use the shell to run commands, not to change files.
 - **A feature isn't done until it meets its acceptance criteria in `SPEC.md`.**
 
 ## 7. Definition of done
