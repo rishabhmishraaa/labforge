@@ -1,7 +1,16 @@
-import { test, type Page } from '@playwright/test';
+import { test, type ConsoleMessage, type Page } from '@playwright/test';
 
 // Any URL that doesn't exist; the preview server answers it with the custom 404 page (SPEC.md F5.5).
 export const notFoundPath = '/does-not-exist';
+
+/**
+ * Chromium logs the 404 page's own document response (expected, F5.5) as the console error
+ * "Failed to load resource: the server responded with a status of 404". Only that message, for that URL, is allowed;
+ * any other failed resource or console error still counts. Used by every console-error test (F2.10, F9.3).
+ */
+export function isExpectedNotFoundMessage(msg: ConsoleMessage): boolean {
+	return msg.type() === 'error' && msg.text().includes('status of 404') && msg.location().url.endsWith(notFoundPath);
+}
 
 // Pages that are indexed: canonical, Open Graph and nav-state criteria apply only to these (F1.6, F6.4, F6.5, F6.8).
 export const indexablePages = ['/', '/pricing', '/about'] as const;
