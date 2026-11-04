@@ -8,8 +8,10 @@ interface Props {
 const { cta } = Astro.props;
 ---
 
+{/* data-cta marks every call to action so the target-size test (SPEC.md F9.10) can find them all. */}
 <a
 	href={cta.href}
+	data-cta
 	class="inline-flex min-h-11 items-center justify-center rounded-full bg-indigo-600 px-6 py-2.5 font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-400 dark:text-slate-950 dark:hover:bg-indigo-300 dark:focus-visible:outline-indigo-400"
 >
 	{cta.label}
