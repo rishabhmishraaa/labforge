@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
-import { forEachPage } from './helpers';
+import { forEachPage, indexablePages, notFoundPath, pages } from './helpers';
 
 // F6 — SEO meta & Open Graph (SPEC.md).
 const SITE = 'https://labforge.example.com';
@@ -45,7 +45,7 @@ test('F6.2 each page has one unique title of 1–60 characters', async ({ page }
 		expect(title.length, `title "${title}"`).toBeLessThanOrEqual(60);
 		titles.add(title);
 	});
-	expect(titles.size, 'all titles are different').toBe(Object.keys(canonicalFor).length);
+	expect(titles.size, 'all titles are different').toBe(pages.length);
 });
 
 test('F6.3 each page has one unique meta description of 1–160 characters', async ({ page }) => {
@@ -58,7 +58,7 @@ test('F6.3 each page has one unique meta description of 1–160 characters', asy
 		expect(content.length, `description "${content}"`).toBeLessThanOrEqual(160);
 		descriptions.add(content);
 	});
-	expect(descriptions.size, 'all descriptions are different').toBe(Object.keys(canonicalFor).length);
+	expect(descriptions.size, 'all descriptions are different').toBe(pages.length);
 });
 
 test('F6.4 canonical URL is absolute with no trailing slash', async ({ page }) => {
@@ -66,8 +66,11 @@ test('F6.4 canonical URL is absolute with no trailing slash', async ({ page }) =
 		const canonical = page.locator('head link[rel="canonical"]');
 		await expect(canonical).toHaveCount(1);
 		await expect(canonical).toHaveAttribute('href', canonicalFor[path]);
-	});
-	// TODO(F5): assert the 404 page has no canonical link once it exists.
+	}, indexablePages);
+
+	await forEachPage(page, async () => {
+		await expect(page.locator('head link[rel="canonical"]'), '404 page has no canonical link').toHaveCount(0);
+	}, [notFoundPath]);
 });
 
 test('F6.5 Open Graph tags are present and use absolute URLs', async ({ page }) => {
@@ -85,13 +88,14 @@ test('F6.5 Open Graph tags are present and use absolute URLs', async ({ page }) 
 		const image = (await meta(page, 'property', 'og:image').getAttribute('content'))!;
 		expect(new URL(image).protocol).toBe('https:');
 		expect(image.startsWith(`${SITE}/`), `og:image ${image} starts with site`).toBe(true);
-	});
+		// F6.5 lists only /, /pricing and /about; the noindex 404 page has no canonical, so it gets no OG tags.
+	}, indexablePages);
 });
 
 test('F6.6 og:image is a 1200x630 PNG served from /og-image.png', async ({ page }) => {
 	await forEachPage(page, async () => {
 		await expect(meta(page, 'property', 'og:image')).toHaveAttribute('content', `${SITE}/og-image.png`);
-	});
+	}, indexablePages);
 
 	const response = await page.request.get('/og-image.png');
 	expect(response.status()).toBe(200);
@@ -110,5 +114,6 @@ test('F6.8 twitter:card is summary_large_image', async ({ page }) => {
 		const card = meta(page, 'name', 'twitter:card');
 		await expect(card).toHaveCount(1);
 		await expect(card).toHaveAttribute('content', 'summary_large_image');
-	});
+		// F6.8 lists only /, /pricing and /about.
+	}, indexablePages);
 });
