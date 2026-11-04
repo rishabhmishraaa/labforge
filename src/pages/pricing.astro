@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatPrice, planItems, plans, pricingIntro, pricingNotice, seatNote } from '../data/pricing';
 ---
 
 <BaseLayout
@@ -7,5 +8,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	description="Example LabForge pricing in USD: Starter at $49/month, Team at $199/month, and Enterprise on request. Compare seats, lab hours, and lab duration."
 >
 	<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Pricing</h1>
-	<p class="mt-4 max-w-2xl text-lg text-slate-700 dark:text-slate-300">Plan details for LabForge will be listed here.</p>
+	<p class="mt-4 max-w-2xl text-lg text-slate-700 dark:text-slate-300">{pricingIntro}</p>
+	<p class="mt-4 text-sm font-medium text-slate-600 dark:text-slate-400" data-pricing-notice>{pricingNotice}</p>
+
+	<div class="mt-10 grid gap-6 md:grid-cols-3">
+		{
+			plans.map((plan) => (
+				<article
+					data-plan={plan.id}
+					class:list={[
+						'flex flex-col rounded-xl border p-6',
+						plan.highlight
+							? 'border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600 dark:border-indigo-400 dark:bg-indigo-950 dark:ring-indigo-400'
+							: 'border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900',
+					]}
+				>
+					<h2 class="text-xl font-semibold">{plan.name}</h2>
+					{plan.highlight && (
+						<p class="mt-2 w-fit rounded-full bg-indigo-600 px-3 py-0.5 text-sm font-semibold text-white dark:bg-indigo-400 dark:text-slate-950">
+							{plan.highlight}
+						</p>
+					)}
+					<p data-price class="mt-4 text-3xl font-bold tracking-tight">
+						{formatPrice(plan)}
+					</p>
+					<ul class="mt-6 list-disc space-y-2 pl-5 text-slate-700 marker:text-indigo-600 dark:text-slate-300 dark:marker:text-indigo-400">
+						{planItems(plan).map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</article>
+			))
+		}
+	</div>
+
+	<p class="mt-6 text-sm text-slate-600 dark:text-slate-400">{seatNote}</p>
 </BaseLayout>
