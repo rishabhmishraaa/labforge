@@ -6,10 +6,11 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Placeholder (SPEC.md): replace with the real Vercel URL before launch.
-  // All absolute URLs (canonical, Open Graph, sitemap, robots.txt, JSON-LD) are built from this value.
-  site: 'https://labforge.example.com',
+  // Production URL on Vercel (SPEC.md Site facts). Set only here:
+  // all absolute URLs (canonical, Open Graph, sitemap, robots.txt, JSON-LD) are built from this value.
+  site: 'https://labforge-chi.vercel.app',
   // No trailing slashes: /pricing is built to dist/pricing.html (SPEC.md D4).
+  // On Vercel, vercel.json `cleanUrls` serves that file at /pricing.
   trailingSlash: 'never',
   build: {
     format: 'file'

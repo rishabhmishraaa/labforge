@@ -1,7 +1,7 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
+import { SITE } from './helpers';
 
-// F7 — Sitemap & robots.txt (SPEC.md). Run against the production build on the preview server.
-const SITE = 'https://labforge.example.com';
+// F7 — Sitemap & robots.txt (SPEC.md). Run against the production build (local preview, or BASE_URL).
 const indexable = ['/', '/pricing', '/about'];
 
 const locs = (xml: string, parent: 'sitemap' | 'url') =>

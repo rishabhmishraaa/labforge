@@ -2,10 +2,9 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { expect, test, type Page } from '@playwright/test';
-import { forEachPage, indexablePages, notFoundPath, pages } from './helpers';
+import { SITE, forEachPage, indexablePages, notFoundPath, pages } from './helpers';
 
 // F6 — SEO meta & Open Graph (SPEC.md).
-const SITE = 'https://labforge.example.com';
 const root = fileURLToPath(new URL('..', import.meta.url));
 
 const canonicalFor: Record<string, string> = {
@@ -31,7 +30,7 @@ test('F6.1 site is set once in astro.config.mjs and nowhere else', async () => {
 
 	const offenders = ['src', 'public']
 		.flatMap((dir) => filesUnder(join(root, dir)))
-		.filter((file) => readFileSync(file, 'latin1').includes('labforge.example.com'))
+		.filter((file) => readFileSync(file, 'latin1').includes(new URL(SITE).host))
 		.map((file) => file.slice(root.length));
 	expect(offenders, 'files that hard-code the site domain').toEqual([]);
 });
