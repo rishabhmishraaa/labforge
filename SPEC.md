@@ -20,8 +20,9 @@ All site copy must stay within these facts. Do not invent customers, numbers, ce
 ## Site facts
 
 - Pages: `/` (home), `/pricing`, `/about`, and a custom 404.
-- Site URL: **`https://labforge.example.com`** (placeholder). It is set once, in `astro.config.mjs` → `site`, and will be replaced with the real Vercel URL before launch. All absolute URLs (canonical, Open Graph, sitemap, robots.txt, JSON-LD) are derived from `site`.
-- URLs have no trailing slash: `trailingSlash: 'never'` and `build.format: 'file'` (for example `/pricing`, built to `dist/pricing.html`). The home page URL is `https://labforge.example.com/`, because a root URL always ends in `/`.
+- Site URL: **`https://labforge-chi.vercel.app`** (the production deployment on Vercel). It is set once, in `astro.config.mjs` → `site`. All absolute URLs (canonical, Open Graph, sitemap, robots.txt, JSON-LD) are derived from `site`.
+- URLs have no trailing slash: `trailingSlash: 'never'` and `build.format: 'file'` (for example `/pricing`, built to `dist/pricing.html`). The home page URL is `https://labforge-chi.vercel.app/`, because a root URL always ends in `/`.
+- Hosting: Vercel. `vercel.json` sets `"cleanUrls": true` and `"trailingSlash": false`, so `/pricing` serves `pricing.html` and `/pricing.html` redirects to `/pricing` (`astro preview` does the first mapping on its own; Vercel needs the setting).
 - Fonts: system font stack only, no web fonts.
 - Example pricing (USD), shown with a visible notice that prices are examples:
 
@@ -162,10 +163,10 @@ All site copy must stay within these facts. Do not invent customers, numbers, ce
 
 **Acceptance criteria**
 
-1. **F6.1** `astro.config.mjs` sets `site: 'https://labforge.example.com'`, `trailingSlash: 'never'`, and `build: { format: 'file' }`. The string `labforge.example.com` appears nowhere else in `src/` or `public/`. `[Playwright]`
+1. **F6.1** `astro.config.mjs` sets `site: 'https://labforge-chi.vercel.app'`, `trailingSlash: 'never'`, and `build: { format: 'file' }`. The string `labforge-chi.vercel.app` appears nowhere else in `src/` or `public/`. `[Playwright]`
 2. **F6.2** Every page has exactly one `<title>`, 1–60 characters long, and no two pages share the same title. `[Playwright]`
 3. **F6.3** Every page has exactly one `<meta name="description">` with content 1–160 characters long, and no two pages share the same description. `[Playwright]`
-4. **F6.4** `/`, `/pricing`, and `/about` each have exactly one `<link rel="canonical">` whose `href` is exactly `https://labforge.example.com/`, `https://labforge.example.com/pricing`, and `https://labforge.example.com/about` respectively (no trailing slash except on the root). The 404 page has no canonical link. `[Playwright]`
+4. **F6.4** `/`, `/pricing`, and `/about` each have exactly one `<link rel="canonical">` whose `href` is exactly `https://labforge-chi.vercel.app/`, `https://labforge-chi.vercel.app/pricing`, and `https://labforge-chi.vercel.app/about` respectively (no trailing slash except on the root). The 404 page has no canonical link. `[Playwright]`
 5. **F6.5** `/`, `/pricing`, and `/about` each have `og:title`, `og:description`, `og:url`, `og:image`, and `og:type`. `og:url` equals the canonical URL, and `og:image` is an absolute `https://` URL that starts with `site`. `[Playwright]`
 6. **F6.6** `og:image` points to `/og-image.png` (as an absolute URL). The file `public/og-image.png` returns HTTP 200 on the preview server with content type `image/png` and is exactly 1200×630 px. `[Playwright]`
 7. **F6.7** The OG image is a placeholder created without new dependencies: an HTML source file in the repo is screenshotted at 1200×630 with Playwright (installed in F10), and the command that regenerates it is documented in `AGENTS.md`. `[Manual]`
@@ -184,8 +185,8 @@ All site copy must stay within these facts. Do not invent customers, numbers, ce
 
 1. **F7.1** `@astrojs/sitemap` (approved dependency) is in `dependencies` and registered in `integrations` in `astro.config.mjs`. `[Build]`
 2. **F7.2** After `npm run build`, `dist/sitemap-index.xml` exists and references at least one sitemap file that also exists in `dist/`. `[Build]`
-3. **F7.3** The sitemap URLs, taken together, are exactly `https://labforge.example.com/`, `https://labforge.example.com/pricing`, and `https://labforge.example.com/about` (compared after URL normalization, so the root with or without `/` counts as the same), with no 404 page and no other URLs. `[Playwright]`
-4. **F7.4** `/robots.txt` returns HTTP 200 with content type `text/plain` and contains `User-agent: *` and the line `Sitemap: https://labforge.example.com/sitemap-index.xml`. `[Playwright]`
+3. **F7.3** The sitemap URLs, taken together, are exactly `https://labforge-chi.vercel.app/`, `https://labforge-chi.vercel.app/pricing`, and `https://labforge-chi.vercel.app/about` (compared after URL normalization, so the root with or without `/` counts as the same), with no 404 page and no other URLs. `[Playwright]`
+4. **F7.4** `/robots.txt` returns HTTP 200 with content type `text/plain` and contains `User-agent: *` and the line `Sitemap: https://labforge-chi.vercel.app/sitemap-index.xml`. `[Playwright]`
 5. **F7.5** `robots.txt` is generated from `site` by an endpoint (`src/pages/robots.txt.ts`), not stored as a static file in `public/`, so the domain is set only in `astro.config.mjs` (F6.1). `[Manual]`
 6. **F7.6** `robots.txt` does not disallow `/`, `/pricing`, or `/about`. `[Playwright]`
 
@@ -205,7 +206,7 @@ All site copy must stay within these facts. Do not invent customers, numbers, ce
 4. **F8.4** `/` has exactly one `FAQPage` object. Its `mainEntity` array has the same number of `Question` items as the visible FAQ (F3.10), in the same order, and each `Question.name` and `acceptedAnswer.text` exactly equals the visible question and answer text (after trimming and collapsing whitespace). `[Playwright]`
 5. **F8.5** `SoftwareApplication` and `FAQPage` appear only on `/`. `[Playwright]`
 6. **F8.6** JSON-LD values are not hard-coded copies of page text: FAQ items come from the same data source as the visible FAQ (F3.12), offers come from `src/data/pricing.ts` (F4.6), and URLs are derived from `site`. `[Manual]`
-7. **F8.7** After deployment, Google's Rich Results Test reports 0 errors for `/`. Valid markup is the goal; whether Google displays rich results is not a criterion. `[Manual]`
+7. **F8.7** After deployment, `/` has 0 errors in the Schema.org Validator, and no Rich Results Test errors other than the missing aggregateRating/review notice. (Google's Software App rich result requires a rating or review, which a fictional product can't have without inventing one.) Valid markup is the goal; whether Google displays rich results is not a criterion. `[Manual]`
 
 **Out of scope:** `Product`/`Offer` markup on `/pricing`, `BreadcrumbList`, `WebSite` with `SearchAction`, review/rating markup.
 
@@ -218,7 +219,7 @@ All site copy must stay within these facts. Do not invent customers, numbers, ce
 **Acceptance criteria**
 
 1. **F9.1** On the production build (`npm run build`, then `npm run preview`), Lighthouse run manually in Chrome DevTools with the "Mobile" device setting scores `/`, `/pricing`, and `/about` at ≥ 95 in each of Performance, Accessibility, Best Practices, and SEO. `[Lighthouse]`
-2. **F9.2** The 404 page scores ≥ 95 in Performance, Accessibility, and Best Practices. (SEO is excluded because `noindex` fails Lighthouse's "is crawlable" audit by design.) `[Lighthouse]`
+2. **F9.2** The 404 page scores ≥ 95 in Performance, Accessibility, and Best Practices. (SEO is excluded because `noindex` fails Lighthouse's "is crawlable" audit by design.) Note: Lighthouse refuses to audit pages that return a non-200 status, so the 404 page is audited as a 200 copy (the same built `404.html` served at a URL that returns 200). `[Lighthouse]`
 3. **F9.3** No console errors or warnings appear on any page during load or while toggling the theme. `[Playwright]`
 4. **F9.4** Every network request made while loading any page goes to the site's own origin (no third-party fonts, scripts, or images). `[Playwright]`
 5. **F9.5** The total JavaScript loaded by any page (inline and external, uncompressed) is ≤ 20 KB. `[Playwright]`
