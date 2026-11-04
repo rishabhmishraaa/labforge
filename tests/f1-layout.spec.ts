@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { forEachPage } from './helpers';
+import { forEachPage, indexablePages, notFoundPath } from './helpers';
 
 // F1 — Base layout & navigation (SPEC.md). Each test checks one criterion on every page.
 const navPaths = ['/', '/pricing', '/about'];
@@ -48,7 +48,12 @@ test('F1.6 only the current page\'s nav link has aria-current="page"', async ({ 
 		await expect(current).toHaveAttribute('href', path);
 		// No link anywhere else on the page claims to be the current page.
 		await expect(page.locator('[aria-current]')).toHaveCount(1);
-	});
+	}, indexablePages);
+
+	// F1.6 covers only /, /pricing and /about. The 404 page isn't one of the nav targets, so no link is current.
+	await forEachPage(page, async () => {
+		await expect(page.locator('[aria-current]')).toHaveCount(0);
+	}, [notFoundPath]);
 });
 
 test('F1.7 skip link is first focusable element', async ({ page }) => {

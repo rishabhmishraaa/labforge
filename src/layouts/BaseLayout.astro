@@ -7,9 +7,11 @@ import Seo from '../components/Seo.astro';
 interface Props {
 	title: string;
 	description: string;
+	/** Marks the page noindex and drops its canonical and social tags (see Seo.astro). */
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 ---
 
 <html lang="en">
@@ -34,7 +36,7 @@ const { title, description } = Astro.props;
 		</script>
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<meta name="generator" content={Astro.generator} />
-		<Seo title={title} description={description} />
+		<Seo title={title} description={description} noindex={noindex} />
 	</head>
 	<body class="flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
 		<a
